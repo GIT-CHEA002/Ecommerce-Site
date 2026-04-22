@@ -4,7 +4,7 @@ function OrderPage() {
   return (
     <>
       <title>Order</title>
-
+      <link rel="icon" type="image/svg+xml" href="icon/orders-favicon.png" />
       <Navbar />
 
       <div className="orders-page">
