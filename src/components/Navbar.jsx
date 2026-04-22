@@ -4,9 +4,9 @@ import { NavLink } from "react-router";
 // NavLink it work like Link component but it useful for
 //  navigation link at the top of the page and it add class "active" to the link
 function Navbar({ cart }) {
-  let totolCart = 0;
+  let totalCart = 0;
   cart.forEach((cart) => {
-    totolCart += cart.quantity;
+    totalCart += cart.quantity;
   });
   return (
     <>
@@ -33,7 +33,7 @@ function Navbar({ cart }) {
 
           <NavLink className="cart-link header-link" to="/checkout">
             <img className="cart-icon" src="images/icons/cart-icon.png" />
-            <div className="cart-quantity">{ totolCart}</div>
+            <div className="cart-quantity">{totalCart}</div>
             <div className="cart-text">Cart</div>
           </NavLink>
         </div>

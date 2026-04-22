@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import formatMoney from "../utils/money";
 function HomePage({ cart }) {
   // fetch the data from the backend has 2 way : fetch and axios
   // 1. using fetch :
@@ -69,7 +70,7 @@ function HomePage({ cart }) {
                   </div>
                 </div>
 
-                <div className="product-price">${product.priceCents / 100}</div>
+                <div className="product-price">{formatMoney(product.priceCents) }</div>
 
                 <div className="product-quantity-container">
                   <select>

@@ -1,11 +1,11 @@
 import "./OrderPage.css";
 import Navbar from "../components/Navbar";
-function OrderPage() {
+function OrderPage({ cart }) {
   return (
     <>
       <title>Order</title>
       <link rel="icon" type="image/svg+xml" href="icon/orders-favicon.png" />
-      <Navbar />
+      <Navbar cart={cart} />
 
       <div className="orders-page">
         <div className="page-title">Your Orders</div>

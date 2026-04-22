@@ -1,10 +1,10 @@
 import "./TrackingPage.css";
 import Navbar from "../components/Navbar";
-function TrackingPage() {
+function TrackingPage({ cart }) {
   return (
     <>
       <title>Tracking</title>
-      <Navbar />
+      <Navbar cart={cart} />
 
       <div className="tracking-page">
         <div className="order-tracking">

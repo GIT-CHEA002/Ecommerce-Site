@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     // get all cart
     axios
-      .get("/api/cart-items")
+      .get("/api/cart-items?expand=product")
       .then((response) => {
         setCarts(response.data); // store cart data in states
       })
@@ -22,9 +22,9 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage cart={cart} />} />
-      <Route path="/order" element={<OrderPage />} />
-      <Route path="/tracking" element={<TrackingPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
+      <Route path="/order" element={<OrderPage cart={cart} />} />
+      <Route path="/tracking" element={<TrackingPage cart={cart} />} />
+      <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
     </Routes>
   );
 }
