@@ -32,11 +32,20 @@ function HomePage() {
   // use [] = run only onces
   // use inteval
   const [products, setProducts] = useState([]);
+  const [carts, setCarts] = useState([]);
   useEffect(() => {
+    // get all products
     axios
       .get("http://localhost:3000/api/products")
       .then((response) => {
         setProducts(response.data); // set the data to product state of use state
+      })
+      .catch(console.error());
+    // get all cart
+    axios
+      .get("http://localhost:3000/api/cart-items")
+      .then((response) => {
+        setCarts(response.data); // store cart data in states
       })
       .catch(console.error());
   }, []);
@@ -44,7 +53,7 @@ function HomePage() {
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="icon/home-favicon.png" />
-      <Navbar />
+      <Navbar cart = {carts} />
       <div className="home-page">
         <div className="products-grid">
           {products.map((product) => {
