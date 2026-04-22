@@ -1,17 +1,39 @@
 import "./HomePage.css";
 import Navbar from "../components/Navbar";
 import { products } from "../../ecommerce-project-main/data/products";
+import axios from "axios";
 function HomePage() {
   // fetch the data from the backend has 2 way : fetch and axios
-  fetch("http://localhost:3000/api/products") // get the resource (work with synchronous fetch)
-    .then((Response) => Response.json()) // return the resource
-    .then((data) => {
-      console.log(data); // get the data of the resource
+  // 1. using fetch :
+  // * using normal fetch
+  // fetch("http://localhost:3000/api/products") // get the resource (work with synchronous fetch)
+  //   .then((Response) => Response.json()) // return the resource
+  //   .then((data) => {
+  //     console.log(data); // get the data of the resource
+  //   })
+  //   .catch((error) => {
+  //     // catch the error
+  //     console.log(error);
+  //   });
+  // * using async function
+  // async function getProducts() {
+  //   try {
+  //     const response = await fetch("http://localhost:3000/api/products");
+  //     const data = response.json();
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+  // getProducts();
+  // 2. using npm package call axios
+  axios
+    .get("http://localhost:3000/api/products")
+    .then((response) => {
+      console.log(response.data);
     })
-    .catch((error) => {
-      // catch the error
-      console.log(error);
-    });
+    .catch(console.error());
+
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="icon/home-favicon.png" />
