@@ -1,7 +1,8 @@
 import "./HomePage.css";
 import Navbar from "../components/Navbar";
-import { products } from "../../ecommerce-project-main/data/products";
 import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 function HomePage() {
   // fetch the data from the backend has 2 way : fetch and axios
   // 1. using fetch :
@@ -27,12 +28,18 @@ function HomePage() {
   // }
   // getProducts();
   // 2. using npm package call axios
-  axios
-    .get("http://localhost:3000/api/products")
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch(console.error());
+  // useEffect = let us control when some code run
+  // use [] = run only onces
+  // use inteval
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/products")
+      .then((response) => {
+        setProducts(response.data); // set the data to product state of use state
+      })
+      .catch(console.error());
+  }, []);
 
   return (
     <>
