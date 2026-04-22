@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-function HomePage() {
+function HomePage({ cart }) {
   // fetch the data from the backend has 2 way : fetch and axios
   // 1. using fetch :
   // * using normal fetch
@@ -32,20 +32,12 @@ function HomePage() {
   // use [] = run only onces
   // use inteval
   const [products, setProducts] = useState([]);
-  const [carts, setCarts] = useState([]);
   useEffect(() => {
     // get all products
     axios
-      .get("http://localhost:3000/api/products")
+      .get("/api/products")
       .then((response) => {
         setProducts(response.data); // set the data to product state of use state
-      })
-      .catch(console.error());
-    // get all cart
-    axios
-      .get("http://localhost:3000/api/cart-items")
-      .then((response) => {
-        setCarts(response.data); // store cart data in states
       })
       .catch(console.error());
   }, []);
@@ -53,7 +45,7 @@ function HomePage() {
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="icon/home-favicon.png" />
-      <Navbar cart = {carts} />
+      <Navbar cart={cart} />
       <div className="home-page">
         <div className="products-grid">
           {products.map((product) => {
