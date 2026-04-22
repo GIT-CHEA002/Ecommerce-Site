@@ -1,7 +1,7 @@
 import HomePage from "./pages/HomePage";
 import OrderPage from "./pages/OrderPage";
 import TrackingPage from "./pages/TrackingPage";
-import CheckoutPage from "./pages/CheckoutPage";
+import CheckoutPage from "./pages/checkout/CheckoutPage";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 // route = add the page to our website
