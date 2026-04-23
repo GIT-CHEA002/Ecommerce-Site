@@ -7,7 +7,6 @@ function CheckoutPageHeader({ cart }) {
       totalCart += cart.quantity;
     });
   }
-
   return (
     <>
       <div className="checkout-header">
