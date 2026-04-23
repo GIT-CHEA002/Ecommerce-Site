@@ -1,7 +1,24 @@
+// import using file
 import "./CheckoutPage.css";
 import CheckoutPageHeader from "./CheckoutPageHeader";
 import formatMoney from "../../utils/money";
+// import package
+import axios from "axios";
+import { useState } from "react";
+import { useEffect } from "react";
+import dayjs from "dayjs";
+
 function CheckoutPage({ cart }) {
+  const [deliveryOptions, setDeliveryOptions] = useState([]);
+  useEffect(() => {
+    axios
+      .get("/api/delivery-options?expand=estimatedDeliveryTime")
+      .then((response) => {
+        setDeliveryOptions(response.data);
+      })
+      .catch(console.error());
+  }, []);
+  console.log(cart);
   return (
     <>
       <title>Checkout</title>
@@ -12,28 +29,39 @@ function CheckoutPage({ cart }) {
 
         <div className="checkout-grid">
           <div className="order-summary">
-            {cart.map((cart) => {
+            { deliveryOptions.length > 0 &&  cart.map((cartItem) => {
+              const selectedDeliveryOption = deliveryOptions.find(
+                (delivery) => {
+                  return delivery.id === cartItem.deliveryOptionId;
+                },
+              );
               return (
-                <div key={cart.productId} className="cart-item-container">
+                <div key={cartItem.productId} className="cart-item-container">
                   <div className="delivery-date">
-                    Delivery date: Tuesday, June 21
+                    Delivery date:
+                    {dayjs(
+                      selectedDeliveryOption.estimatedDeliveryTimeMs,
+                    ).format(" dddd, MMMM D")}
                   </div>
 
                   <div className="cart-item-details-grid">
-                    <img className="product-image" src={cart.product.image} />
+                    <img
+                      className="product-image"
+                      src={cartItem.product.image}
+                    />
 
                     <div className="cart-item-details">
                       <div className="product-name">
-                        Black and Gray Athletic Cotton Socks - 6 Pairs
+                        {cartItem.product.name}
                       </div>
                       <div className="product-price">
-                        {formatMoney(cart.product.priceCents)}
+                        {formatMoney(cartItem.product.priceCents)}
                       </div>
                       <div className="product-quantity">
                         <span>
                           Quantity:
                           <span className="quantity-label">
-                            {cart.quantity}
+                            {cartItem.quantity}
                           </span>
                         </span>
                         <span className="update-quantity-link link-primary">
@@ -49,59 +77,42 @@ function CheckoutPage({ cart }) {
                       <div className="delivery-options-title">
                         Choose a delivery option:
                       </div>
-                      <div className="delivery-option">
-                        <input
-                          type="radio"
-                          checked
-                          className="delivery-option-input"
-                          name="delivery-option-1"
-                        />
-                        <div>
-                          <div className="delivery-option-date">
-                            Tuesday, June 21
+
+                      {deliveryOptions.map((delivery) => {
+                        return (
+                          <div key={delivery.id} className="delivery-option">
+                            <input
+                              type="radio"
+                              value={delivery.id}
+                              onSelect={{}}
+                              checked={
+                                delivery.id === cartItem.deliveryOptionId
+                              }
+                              className="delivery-option-input"
+                              name={`delivery-option-${cartItem.productId}`}
+                            />
+                            <div>
+                              <div className="delivery-option-date">
+                                {dayjs(delivery.estimatedDeliveryTimeMs).format(
+                                  "dddd, MMMM D",
+                                )}
+                              </div>
+                              <div className="delivery-option-price">
+                                {formatMoney(delivery.priceCents) == "$0.00"
+                                  ? "FREE Shipping"
+                                  : formatMoney(delivery.priceCents)}
+                              </div>
+                            </div>
                           </div>
-                          <div className="delivery-option-price">
-                            FREE Shipping
-                          </div>
-                        </div>
-                      </div>
-                      <div className="delivery-option">
-                        <input
-                          type="radio"
-                          className="delivery-option-input"
-                          name="delivery-option-1"
-                        />
-                        <div>
-                          <div className="delivery-option-date">
-                            Wednesday, June 15
-                          </div>
-                          <div className="delivery-option-price">
-                            $4.99 - Shipping
-                          </div>
-                        </div>
-                      </div>
-                      <div className="delivery-option">
-                        <input
-                          type="radio"
-                          className="delivery-option-input"
-                          name="delivery-option-1"
-                        />
-                        <div>
-                          <div className="delivery-option-date">
-                            Monday, June 13
-                          </div>
-                          <div className="delivery-option-price">
-                            $9.99 - Shipping
-                          </div>
-                        </div>
-                      </div>
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
               );
             })}
           </div>
-
+           {/* for total payment and discount */}
           <div className="payment-summary">
             <div className="payment-summary-title">Payment Summary</div>
 
