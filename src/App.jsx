@@ -1,5 +1,5 @@
-import HomePage from "./pages/HomePage";
-import OrderPage from "./pages/OrderPage";
+import HomePage from "./pages/home/HomePage";
+import OrderPage from "./pages/orders/OrderPage";
 import TrackingPage from "./pages/TrackingPage";
 import CheckoutPage from "./pages/checkout/CheckoutPage";
 import { Routes, Route } from "react-router-dom";
