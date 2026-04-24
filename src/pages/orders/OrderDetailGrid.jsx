@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { Fragment } from "react";
-function OrderDetail({ order }) {
+function OrderDetailGrid({ order }) {
   return (
     <div className="order-details-grid">
       {order.products.map((orderProduct) => {
@@ -29,7 +29,7 @@ function OrderDetail({ order }) {
             </div>
 
             <div className="product-actions">
-              <a href="/tracking">
+              <a href={`/tracking/${order.id}/${orderProduct.productId}`}>
                 <button className="track-package-button button-secondary">
                   Track package
                 </button>
@@ -41,4 +41,4 @@ function OrderDetail({ order }) {
     </div>
   );
 }
-export default OrderDetail;
+export default OrderDetailGrid;

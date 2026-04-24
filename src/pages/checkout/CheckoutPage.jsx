@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import OrderSummary from "./OrderSummary";
 import PaymentSummary from "./PaymentSummary";
+import { Helmet } from "react-helmet";
 
 function CheckoutPage({ cart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
@@ -22,7 +23,6 @@ function CheckoutPage({ cart }) {
     axios
       .get("/api/payment-summary")
       .then((response) => {
-        console.log(response.data);
         setPaymentSunmmary(response.data);
       })
       .catch(console.error());
@@ -30,7 +30,10 @@ function CheckoutPage({ cart }) {
   return (
     <>
       <title>Checkout</title>
-      <link rel="icon" type="image/svg+xml" href="icon/cart-favicon.png" />
+      <Helmet>
+        <link rel="icon" type="image/svg+xml" href="icon/cart-favicon.png" />
+      </Helmet>
+
       <CheckoutPageHeader cart={cart} />
       <div className="checkout-page">
         <div className="page-title">Review your order</div>

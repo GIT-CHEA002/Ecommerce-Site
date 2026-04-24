@@ -1,5 +1,5 @@
 import "./CheckoutPageHeader.css";
-import { Link } from "react-router";
+import { NavLink } from "react-router-dom";
 function CheckoutPageHeader({ cart }) {
   let totalCart = 0;
   if (cart) {
@@ -12,17 +12,17 @@ function CheckoutPageHeader({ cart }) {
       <div className="checkout-header">
         <div className="header-content">
           <div className="checkout-header-left-section">
-            <Link to="/">
+            <NavLink to="/">
               <img className="logo" src="images/logo.png" />
               <img className="mobile-logo" src="images/mobile-logo.png" />
-            </Link>
+            </NavLink>
           </div>
 
           <div className="checkout-header-middle-section">
             Checkout (
-            <Link className="return-to-home-link" to="/">
+            <NavLink className="return-to-home-link" to="/">
               {totalCart} items
-            </Link>
+            </NavLink>
             )
           </div>
 

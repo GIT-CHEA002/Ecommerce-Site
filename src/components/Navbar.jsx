@@ -1,5 +1,5 @@
 import "./Navbar.css";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 // link make the spa switch between pages with no reload pages
 // NavLink it work like Link component but it useful for
 //  navigation link at the top of the page and it add class "active" to the link
@@ -8,6 +8,7 @@ function Navbar({ cart }) {
   cart.forEach((cart) => {
     totalCart += cart.quantity;
   });
+
   return (
     <>
       <div className="header">

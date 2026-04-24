@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ProductGrid from "./ProductGrid";
 import { Fragment } from "react";
+import { Helmet } from "react-helmet";
 function HomePage({ cart }) {
   // fetch the data from the backend has 2 way : fetch and axios
   // 1. using fetch :
@@ -33,20 +34,24 @@ function HomePage({ cart }) {
   // useEffect = let us control when some code run
   // use [] = run only onces
   // use inteval
+  //
+
+  // asyn and await = let us write async code like a normal code
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    // get all products
-    axios
-      .get("/api/products")
-      .then((response) => {
-        setProducts(response.data); // set the data to product state of use state
-      })
-      .catch(console.error());
+    const getHomeData = async () => {
+      const response = await axios.get("/api/products");
+      setProducts(response.data); // set the data to product state of use state
+    };
+    getHomeData();
   }, []);
 
   return (
     <Fragment>
-      <link rel="icon" type="image/svg+xml" href="icon/home-favicon.png" />
+      <title>Ecommerce Site</title>
+      <Helmet>
+        <link rel="icon" type="image/png" href="/icon/home-favicon.png" />
+      </Helmet>
       <Navbar cart={cart} />
       <div className="home-page">
         <ProductGrid products={products} />
