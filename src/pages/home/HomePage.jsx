@@ -6,7 +6,7 @@ import { useState } from "react";
 import ProductGrid from "./ProductGrid";
 import { Fragment } from "react";
 import { Helmet } from "react-helmet";
-function HomePage({ cart }) {
+function HomePage({ cart, loadCart }) {
   // fetch the data from the backend has 2 way : fetch and axios
   // 1. using fetch :
   // * using normal fetch
@@ -54,7 +54,7 @@ function HomePage({ cart }) {
       </Helmet>
       <Navbar cart={cart} />
       <div className="home-page">
-        <ProductGrid products={products} />
+        <ProductGrid products={products} loadCart={loadCart} />
       </div>
     </Fragment>
   );

@@ -13,19 +13,19 @@ function CheckoutPage({ cart }) {
   const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSunmmary] = useState({});
   useEffect(() => {
-    axios
-      .get("/api/delivery-options?expand=estimatedDeliveryTime")
-      .then((response) => {
-        setDeliveryOptions(response.data);
-      })
-      .catch(console.error());
-    // get payment summery for cart order products
-    axios
-      .get("/api/payment-summary")
-      .then((response) => {
-        setPaymentSunmmary(response.data);
-      })
-      .catch(console.error());
+    const getCheckoutData = async () => {
+      try {
+        let [getDelivery, getPaymentData] = await Promise.all([
+          axios.get("/api/delivery-options?expand=estimatedDeliveryTime"),
+          axios.get("/api/payment-summary"),
+        ]);
+        setDeliveryOptions(getDelivery.data);
+        setPaymentSunmmary(getPaymentData.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCheckoutData();
   }, []);
   return (
     <>

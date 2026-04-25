@@ -9,19 +9,21 @@ import "./App.css";
 // route = add the page to our website
 // route has 2 attribute , path(uri) and element(component or page)
 function App() {
+  // for loading cart when the add to cart button is trigger
+  const loadCart = async () => {
+    const response = await axios.get("/api/cart-items?expand=product");
+    setCarts(response.data); // store cart data in states
+  };
+
   const [cart, setCarts] = useState([]);
   useEffect(() => {
-    // get all cart
-    const fetchAppData = async () => {
-      const response = await axios.get("/api/cart-items?expand=product");
-      setCarts(response.data); // store cart data in states
-    };
-    fetchAppData();
+    loadCart();
   }, []);
   // :orderId and :productId is url paramter
   return (
     <Routes>
-      <Route path="/" element={<HomePage cart={cart} />} />
+      {/* // parsing the loadCart to HomePage Component  */}
+      <Route path="/" element={<HomePage cart={cart} loadCart={loadCart} />} />
       <Route path="/order" element={<OrderPage cart={cart} />} />
       <Route
         path="/tracking/:orderId/:productId"
