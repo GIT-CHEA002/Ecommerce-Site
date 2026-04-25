@@ -23,6 +23,8 @@ function Navbar({ cart }) {
 
         <div className="middle-section">
           <input
+            id=""
+            name=""
             className="search-bar"
             type="text"
             placeholder="Search"
