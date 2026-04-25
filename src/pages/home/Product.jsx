@@ -1,8 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import formatMoney from "../../utils/money";
-function Product({ product , loadCart }) {
+function Product({ product, loadCart }) {
+  // function to selected the quantitty of feature add to cart 
   const [quantity, setQuanity] = useState(1);
+  const quantitySelected = (event) => {
+    setQuanity(Number(event.target.value));
+  };
   return (
     <div key={product.id} className="product-container">
       <div className="product-image-container">
@@ -24,12 +28,7 @@ function Product({ product , loadCart }) {
       <div className="product-price">{formatMoney(product.priceCents)}</div>
 
       <div className="product-quantity-container">
-        <select
-          value={quantity}
-          onChange={(event) => {
-            setQuanity(Number(event.target.value));
-          }}
-        >
+        <select value={quantity} onChange={quantitySelected}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>

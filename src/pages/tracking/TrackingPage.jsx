@@ -31,10 +31,10 @@ function TrackingPage({ cart }) {
     orderProduct?.estimatedDeliveryTimeMs - trackingData?.orderTimeMs;
   let timePassedMs = dayjs().valueOf() - trackingData?.orderTimeMs;
   let deliveryPercent = 0;
-   deliveryPercent = Math.max(deliveryPercent, 90);
+  deliveryPercent = Math.max(deliveryPercent, 100);
   if (totalDeliverytimeMs && totalDeliverytimeMs > 0) {
     deliveryPercent = (timePassedMs / totalDeliverytimeMs) * 100;
-    deliveryPercent = Math.max(deliveryPercent, 90);
+    deliveryPercent = Math.max(deliveryPercent, 100);
   }
   return (
     <>

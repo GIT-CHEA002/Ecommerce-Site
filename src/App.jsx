@@ -29,7 +29,10 @@ function App() {
         path="/tracking/:orderId/:productId"
         element={<TrackingPage cart={cart} />}
       />
-      <Route path="/checkout" element={<CheckoutPage cart={cart} />} />
+      <Route
+        path="/checkout"
+        element={<CheckoutPage cart={cart} loadCart={loadCart} />}
+      />
     </Routes>
   );
 }

@@ -10,6 +10,7 @@ function OrderDetailGrid({ order }) {
               <img src={orderProduct.product.image} />
             </div>
 
+            
             <div className="product-details">
               <div className="product-name">{orderProduct.product.name}</div>
               <div className="product-delivery-date">
