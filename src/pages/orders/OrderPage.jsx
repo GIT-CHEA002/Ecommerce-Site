@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Fragment } from "react";
 import OrderGrid from "./OrderGrid";
 import { Helmet } from "react-helmet";
-function OrderPage({ cart }) {
+function OrderPage({ cart, loadCart }) {
   const [orders, setOrders] = useState([]);
   // fetch orders
   useEffect(() => {
@@ -28,7 +28,7 @@ function OrderPage({ cart }) {
       <Navbar cart={cart} />
       <div className="orders-page">
         <div className="page-title">Your Orders</div>
-        <OrderGrid orders={orders} />
+        <OrderGrid orders={orders} loadCart={loadCart} />
       </div>
     </>
   );

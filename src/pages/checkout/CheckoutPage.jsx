@@ -14,21 +14,31 @@ function CheckoutPage({ cart, loadCart }) {
   const [paymentSummary, setPaymentSunmmary] = useState({});
   useEffect(() => {
     // delivery option and the payment summary reload once the cart is changed
-    const getCheckoutData = async () => {
+    const getDeliveryData = async () => {
       try {
-        let [getDelivery, getPaymentData] = await Promise.all([
-          axios.get("/api/delivery-options?expand=estimatedDeliveryTime"),
-          axios.get("/api/payment-summary"),
-        ]);
+        const getDelivery = await axios.get(
+          "/api/delivery-options?expand=estimatedDeliveryTime",
+        );
         setDeliveryOptions(getDelivery.data);
-        setPaymentSunmmary(getPaymentData.data);
       } catch (error) {
         console.log(error);
       }
     };
-    getCheckoutData();
+    getDeliveryData();
     // use [cart] = mean that when the cart change the useEffect will re-run again to match
     // the paymentSummary
+  }, []);
+  // for payment summary 
+  useEffect(() => {
+    const getPaymentData = async () => {
+      try {
+        const getPaymentSummary = await axios.get("/api/payment-summary");
+        setPaymentSunmmary(getPaymentSummary.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPaymentData();
   }, [cart]);
   return (
     <>
@@ -48,7 +58,7 @@ function CheckoutPage({ cart, loadCart }) {
             loadCart={loadCart}
           />
           {/* for total payment and discount */}
-          <PaymentSummary paymentSummary={paymentSummary} />
+          <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart} />
         </div>
       </div>
     </>

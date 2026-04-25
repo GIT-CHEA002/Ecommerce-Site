@@ -24,7 +24,10 @@ function App() {
     <Routes>
       {/* // parsing the loadCart to HomePage Component  */}
       <Route path="/" element={<HomePage cart={cart} loadCart={loadCart} />} />
-      <Route path="/order" element={<OrderPage cart={cart} />} />
+      <Route
+        path="/order"
+        element={<OrderPage cart={cart} loadCart={loadCart} />}
+      />
       <Route
         path="/tracking/:orderId/:productId"
         element={<TrackingPage cart={cart} />}
