@@ -1,5 +1,6 @@
+import { useState } from "react";
 import "./Navbar.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 // link make the spa switch between pages with no reload pages
 // NavLink it work like Link component but it useful for
 //  navigation link at the top of the page and it add class "active" to the link
@@ -8,7 +9,8 @@ function Navbar({ cart }) {
   cart.forEach((cart) => {
     totalCart += cart.quantity;
   });
-
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
   return (
     <>
       <div className="header">
@@ -20,9 +22,24 @@ function Navbar({ cart }) {
         </div>
 
         <div className="middle-section">
-          <input className="search-bar" type="text" placeholder="Search" />
+          <input
+            className="search-bar"
+            type="text"
+            placeholder="Search"
+            value={searchText}
+            onChange={(event) => {
+              setSearchText(event.target.value);
+                navigate(`/?search=${event.target.value}`);
+              console.log(searchText);
+            }}
+          />
 
-          <button className="search-button">
+          <button
+            className="search-button"
+            onClick={() => {
+              navigate(`/?search=${searchText}`);
+            }}
+          >
             <img className="search-icon" src="images/icons/search-icon.png" />
           </button>
         </div>

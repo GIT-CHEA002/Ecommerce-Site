@@ -1,0 +1,27 @@
+.cart-alert {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: rgb(6, 178, 43);
+  color: white;
+  padding: 10px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  animation: fadeInOut 2s ease-in-out;
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -6,6 +6,7 @@ import { useState } from "react";
 import ProductGrid from "./ProductGrid";
 import { Fragment } from "react";
 import { Helmet } from "react-helmet";
+import { useSearchParams } from "react-router-dom";
 function HomePage({ cart, loadCart }) {
   // fetch the data from the backend has 2 way : fetch and axios
   // 1. using fetch :
@@ -38,13 +39,22 @@ function HomePage({ cart, loadCart }) {
 
   // asyn and await = let us write async code like a normal code
   const [products, setProducts] = useState([]);
+  const [searchParams] = useSearchParams();
+  const searchText = searchParams.get("search");
   useEffect(() => {
-    const getHomeData = async () => {
-      const response = await axios.get("/api/products");
-      setProducts(response.data); // set the data to product state of use state
+    const getAllCart = async () => {
+      try {
+        const url = searchText
+          ? `/api/products?search=${searchText}`
+          : `/api/products`;
+        const response = await axios.get(url);
+        setProducts(response.data); // set the data to product state of use state
+      } catch (error) {
+        console.log(error);
+      }
     };
-    getHomeData();
-  }, []);
+    getAllCart();
+  }, [searchText]);
 
   return (
     <Fragment>
@@ -54,7 +64,11 @@ function HomePage({ cart, loadCart }) {
       </Helmet>
       <Navbar cart={cart} />
       <div className="home-page">
-        <ProductGrid products={products} loadCart={loadCart} />
+        <ProductGrid
+          products={products}
+      
+          loadCart={loadCart}
+        />
       </div>
     </Fragment>
   );
