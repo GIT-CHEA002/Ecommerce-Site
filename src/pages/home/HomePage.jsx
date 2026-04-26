@@ -66,7 +66,6 @@ function HomePage({ cart, loadCart }) {
       <div className="home-page">
         <ProductGrid
           products={products}
-      
           loadCart={loadCart}
         />
       </div>

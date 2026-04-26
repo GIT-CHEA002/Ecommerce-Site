@@ -3,8 +3,8 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import axios from "axios";
 import Product from "./Product";
-vi.mock("axios");
-
+import formatMoney from "../../utils/money";
+vi.mock("axios"); // mock = make the mock do whatever we want
 describe("Product", () => {
   // model prodcut cart (data)
   let product = {
@@ -45,6 +45,9 @@ describe("Product", () => {
     render(<Product product={product} loadCart={loadCart} />);
     expect(
       screen.getByText("Athletic Skateboard Shoes - Gray"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(formatMoney(3390)), // test price
     ).toBeInTheDocument();
     expect(screen.getByTestId("product-image")).toHaveAttribute(
       "src",
