@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import axios from "axios";
 import Product from "./Product";
 vi.mock("axios");
+
 describe("Product", () => {
   it("display product detail correctly", () => {
     const loadCart = vi.fn();
