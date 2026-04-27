@@ -17,7 +17,7 @@ function CheckoutPage({ cart, loadCart }) {
     const getDeliveryData = async () => {
       try {
         const getDelivery = await axios.get(
-          "/api/delivery-options?expand=estimatedDeliveryTime",
+          "https://ecommerce-site-backend-0gp2.onrender.com/api/delivery-options?expand=estimatedDeliveryTime",
         );
         setDeliveryOptions(getDelivery.data);
       } catch (error) {
@@ -28,11 +28,13 @@ function CheckoutPage({ cart, loadCart }) {
     // use [cart] = mean that when the cart change the useEffect will re-run again to match
     // the paymentSummary
   }, []);
-  // for payment summary 
+  // for payment summary
   useEffect(() => {
     const getPaymentData = async () => {
       try {
-        const getPaymentSummary = await axios.get("/api/payment-summary");
+        const getPaymentSummary = await axios.get(
+          "https://ecommerce-site-backend-0gp2.onrender.com/api/payment-summary",
+        );
         setPaymentSunmmary(getPaymentSummary.data);
       } catch (error) {
         console.log(error);

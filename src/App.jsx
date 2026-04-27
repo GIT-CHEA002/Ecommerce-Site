@@ -11,7 +11,9 @@ import "./App.css";
 function App() {
   // for loading cart when the add to cart button is trigger
   const loadCart = async () => {
-    const response = await axios.get("/api/cart-items?expand=product");
+    const response = await axios.get(
+      "https://ecommerce-site-backend-0gp2.onrender.com/api/cart-items?expand=product",
+    );
     setCarts(response.data); // store cart data in states
   };
 

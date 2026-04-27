@@ -5,15 +5,19 @@ import Product from "./Product";
 import HomePage from "./HomePage";
 import { MemoryRouter } from "react-router-dom";
 import formatMoney from "../../utils/money";
+import userEvent from "@testing-library/user-event";
 
 vi.mock("axios");
 describe("Test HomePage Componet", () => {
   // use before each test to ignore the duplication
   let loadCart;
+  axios.post = vi.fn(() => Promise.resolve({}));
   beforeEach(() => {
     loadCart = vi.fn();
     axios.get.mockImplementation((url) => {
-      if (url === "/api/products") {
+      if (
+        url === "https://ecommerce-site-backend-0gp2.onrender.com/api/products"
+      ) {
         return Promise.resolve({
           data: [
             {
@@ -75,7 +79,67 @@ describe("Test HomePage Componet", () => {
       within(productContainer[1]).getByText(formatMoney(2095)),
     ).toBeInTheDocument();
   });
+  it("Add to Cart Button work", async () => {
+    render(
+      <MemoryRouter>
+        <HomePage cart={[]} loadCart={loadCart} />
+      </MemoryRouter>,
+    );
+    //============ set up user ==============
+    const productContainer = await screen.findAllByTestId("product-container");
+    const user = userEvent.setup();
+    // get quantity
+    // product 1=====
+    expect(
+      within(productContainer[0]).getByTestId("select-quantity"),
+    ).toHaveValue("1");
+
+    await user.selectOptions(
+      within(productContainer[0]).getByTestId("select-quantity"),
+      "2",
+    );
+    await user.click(within(productContainer[0]).getByTestId("add-to-cart"));
+    expect(axios.post).toHaveBeenNthCalledWith(
+      1,
+      "https://ecommerce-site-backend-0gp2.onrender.com/api/cart-items",
+      {
+        productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+        quantity: 2,
+      },
+    );
+    // product 2====
+    expect(
+      within(productContainer[1]).getByTestId("select-quantity"),
+    ).toHaveValue("1");
+    await user.selectOptions(
+      within(productContainer[1]).getByTestId("select-quantity"),
+      "3",
+    );
+    await user.click(within(productContainer[1]).getByTestId("add-to-cart"));
+    expect(axios.post).toHaveBeenNthCalledWith(
+      2,
+      "https://ecommerce-site-backend-0gp2.onrender.com/api/cart-items",
+      {
+        productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+        quantity: 3,
+      },
+    );
+    expect(axios.post).toHaveBeenCalledTimes(2);
+    expect(loadCart).toHaveBeenCalled();
+    expect(loadCart).toHaveBeenCalledTimes(2);
+  });
 });
+
+// it("user interaction correctly", async () => {
+//   render(<Product product={product} loadCart={loadCart} />);
+//   const addToCart = screen.getByTestId("add-to-cart");
+//   await user.click(addToCart);
+//   expect(axios.post).toHaveBeenCalledWith("https://ecommerce-site-backend-0gp2.onrender.com/api/cart-items", {
+//     productId: "10ed8504-57db-433c-b0a3-fc71a35c88a1",
+//     quantity: 1,
+//   });
+//   expect(loadCart).toHaveBeenCalled();
+// });
 
 // use expect with : to... methods (mean we expect some value from the test )
 // within() == let us find the element within the specific element pages

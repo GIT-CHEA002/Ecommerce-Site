@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": {
+      "https://ecommerce-site-backend-0gp2.onrender.com/api": {
         target: "http://localhost:3000", // work like htaccess of the backend api endpoint
       },
       "/images": {

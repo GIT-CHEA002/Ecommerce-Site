@@ -6,10 +6,13 @@ function OrderDetailGrid({ order, loadCart }) {
     <div className="order-details-grid">
       {order.products.map((orderProduct) => {
         const addToCart = async () => {
-          await axios.post("/api/cart-items", {
-            productId: orderProduct.productId,
-            quantity: orderProduct.quantity,
-          });
+          await axios.post(
+            "https://ecommerce-site-backend-0gp2.onrender.com/api/cart-items",
+            {
+              productId: orderProduct.productId,
+              quantity: orderProduct.quantity,
+            },
+          );
           await loadCart();
         };
         return (

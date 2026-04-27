@@ -9,10 +9,13 @@ function Product({ product, loadCart }) {
     setQuanity(Number(event.target.value));
   };
   const addToCart = async () => {
-    await axios.post("/api/cart-items", {
-      productId: product.id,
-      quantity: quantity,
-    });
+    await axios.post(
+      "https://ecommerce-site-backend-0gp2.onrender.com/api/cart-items",
+      {
+        productId: product.id,
+        quantity: quantity,
+      },
+    );
     setIsAdded(true);
     setTimeout(() => {
       setIsAdded(false);
@@ -20,11 +23,15 @@ function Product({ product, loadCart }) {
     await loadCart();
   };
   return (
-    <div key={product.id} className="product-container"
+    <div
+      key={product.id}
+      className="product-container"
       data-testid="product-container"
     >
       <div className="product-image-container">
-        <img className="product-image" src={`${product.image}`}
+        <img
+          className="product-image"
+          src={`${product.image}`}
           data-testid="product-image"
         />
       </div>
@@ -34,7 +41,7 @@ function Product({ product, loadCart }) {
       <div className="product-rating-container">
         <img
           className="product-rating-stars"
-          data-testid = "product-rating-stars-image"
+          data-testid="product-rating-stars-image"
           src={`images/ratings/rating-${product.rating.stars * 10}.png`}
         />
         <div className="product-rating-count link-primary">
@@ -45,7 +52,11 @@ function Product({ product, loadCart }) {
       <div className="product-price">{formatMoney(product.priceCents)}</div>
 
       <div className="product-quantity-container">
-        <select value={quantity} onChange={quantitySelected}>
+        <select
+          value={quantity}
+          onChange={quantitySelected}
+          data-testid="select-quantity"
+        >
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -66,8 +77,11 @@ function Product({ product, loadCart }) {
         Added
       </div>
 
-      <button className="add-to-cart-button button-primary" onClick={addToCart}
-      data-testid="add-to-cart">
+      <button
+        className="add-to-cart-button button-primary"
+        onClick={addToCart}
+        data-testid="add-to-cart"
+      >
         Add to Cart
       </button>
     </div>

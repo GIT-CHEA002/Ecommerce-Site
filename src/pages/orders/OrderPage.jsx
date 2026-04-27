@@ -11,7 +11,9 @@ function OrderPage({ cart, loadCart }) {
   useEffect(() => {
     const getOrderData = async () => {
       try {
-        const response = await axios.get("/api/orders?expand=products");
+        const response = await axios.get(
+          "https://ecommerce-site-backend-0gp2.onrender.com/api/orders?expand=products",
+        );
         setOrders(response.data);
       } catch (error) {
         console.log(error);

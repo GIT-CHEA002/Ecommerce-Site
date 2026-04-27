@@ -11,7 +11,7 @@ function HomePage({ cart, loadCart }) {
   // fetch the data from the backend has 2 way : fetch and axios
   // 1. using fetch :
   // * using normal fetch
-  // fetch("http://localhost:3000/api/products") // get the resource (work with synchronous fetch)
+  // fetch("http://localhost:3000https://ecommerce-site-backend-0gp2.onrender.com/api/products") // get the resource (work with synchronous fetch)
   //   .then((Response) => Response.json()) // return the resource
   //   .then((data) => {
   //     console.log(data); // get the data of the resource
@@ -23,7 +23,7 @@ function HomePage({ cart, loadCart }) {
   // * using async function
   // async function getProducts() {
   //   try {
-  //     const response = await fetch("http://localhost:3000/api/products");
+  //     const response = await fetch("http://localhost:3000https://ecommerce-site-backend-0gp2.onrender.com/api/products");
   //     const data = response.json();
   //     console.log(data);
   //   } catch (error) {
@@ -45,8 +45,8 @@ function HomePage({ cart, loadCart }) {
     const getAllCart = async () => {
       try {
         const url = searchText
-          ? `/api/products?search=${searchText}`
-          : `/api/products`;
+          ? `https://ecommerce-site-backend-0gp2.onrender.com/api/products?search=${searchText}`
+          : `https://ecommerce-site-backend-0gp2.onrender.com/api/products`;
         const response = await axios.get(url);
         setProducts(response.data); // set the data to product state of use state
       } catch (error) {
@@ -64,10 +64,7 @@ function HomePage({ cart, loadCart }) {
       </Helmet>
       <Navbar cart={cart} />
       <div className="home-page">
-        <ProductGrid
-          products={products}
-          loadCart={loadCart}
-        />
+        <ProductGrid products={products} loadCart={loadCart} />
       </div>
     </Fragment>
   );
